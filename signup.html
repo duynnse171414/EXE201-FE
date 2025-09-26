@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Pawfect Match</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            min-height: 700px;
+            display: flex;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(-2px);
+        }
+
+        .signup-left {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signup-left::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+        }
+
+        .signup-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .brand-logo {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+        }
+
+        .signup-title {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .signup-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .demo-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .signup-right {
+            flex: 1.2;
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: white;
+            overflow-y: auto;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .form-title {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-subtitle {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .signup-form {
+            width: 100%;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            flex: none;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        input::placeholder {
+            color: #9ca3af;
+        }
+
+        .password-input {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 0.875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 1.1rem;
+            padding: 0.5rem;
+        }
+
+        .password-requirements {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .signup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .signup-button:active {
+            transform: translateY(0);
+        }
+
+        .form-footer {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .form-footer a {
+            color: #6366f1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .signup-container {
+                flex-direction: column;
+                max-height: none;
+                min-height: auto;
+            }
+
+            .signup-left {
+                padding: 3rem 2rem;
+                text-align: center;
+            }
+
+            .signup-title {
+                font-size: 2.2rem;
+            }
+
+            .signup-right {
+                padding: 3rem 2rem;
+            }
+
+            .form-title {
+                font-size: 1.8rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .demo-features {
+                margin-top: 1.5rem;
+            }
+
+            .back-button {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .signup-container {
+                border-radius: 15px;
+            }
+
+            .signup-left,
+            .signup-right {
+                padding: 2rem 1.5rem;
+            }
+
+            .signup-title {
+                font-size: 2rem;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Loading state */
+        .signup-button.loading {
+            background: #9ca3af;
+            cursor: not-allowed;
+            position: relative;
+        }
+
+        .signup-button.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Success animation */
+        .success-message {
+            background: #10b981;
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 1rem;
+            transform: translateY(-10px);
+            opacity: 0;
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Error animation */
+        .error-message {
+            background: #ef4444;
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 1rem;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        /* Form validation styles */
+        .form-group.error input,
+        .form-group.error select {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+
+        .form-group.success input,
+        .form-group.success select {
+            border-color: #10b981;
+            background-color: #f0fdf4;
+        }
+
+        .error-text {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <a href="index.html" class="back-button">
+            ← Back to Home
+        </a>
+        
+        <div class="signup-left">
+            <div class="signup-content">
+                <div class="brand-logo">🐾</div>
+                <h1 class="signup-title">Find Your Pet's Perfect Match</h1>
+                <p class="signup-subtitle">Tailored accessories, just for them.</p>
+                
+                <div class="demo-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🧠</div>
+                        <div>
+                            <strong>AI-Powered Matching</strong><br>
+                            <small>Smart recommendations for your pet</small>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">❤️</div>
+                        <div>
+                            <strong>Personalized Experience</strong><br>
+                            <small>Unique profiles for every pet</small>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🛒</div>
+                        <div>
+                            <strong>Easy Shopping</strong><br>
+                            <small>One-click purchase & delivery</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="signup-right">
+            <div class="form-header">
+                <h2 class="form-title">Create Your Account</h2>
+                <p class="form-subtitle">Join Pawfect Match to discover personalized accessories for your beloved pet!</p>
+            </div>
+            
+            <form class="signup-form" id="signupForm">
+                <div class="form-group full-width">
+                    <label for="email">Email *</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email"
+                        placeholder="your@example.com"
+                        required
+                    >
+                    <div class="error-text" id="emailError"></div>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="password">Password *</label>
+                    <div class="password-input">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password"
+                            placeholder="••••••••"
+                            required
+                        >
+                        <button type="button" class="password-toggle" id="passwordToggle">
+                            👁️
+                        </button>
+                    </div>
+                    <div class="password-requirements">
+                        8 or more characters<br>
+                        Has a symbol, number, or uppercase letter
+                    </div>
+                    <div class="error-text" id="passwordError"></div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="petName">Pet Name *</label>
+                        <input 
+                            type="text" 
+                            id="petName" 
+                            name="petName"
+                            placeholder="Buddy"
+                            required
+                        >
+                        <div class="error-text" id="petNameError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="petType">Pet Type *</label>
+                        <select id="petType" name="petType" required>
+                            <option value="">Select type</option>
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                        </select>
+                        <div class="error-text" id="petTypeError"></div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="petAge">Pet Age</label>
+                        <select id="petAge" name="petAge">
+                            <option value="">Select age</option>
+                            <option value="puppy">Puppy/Kitten (0-1 year)</option>
+                            <option value="young">Young (1-3 years)</option>
+                            <option value="adult">Adult (3-7 years)</option>
+                            <option value="senior">Senior (7+ years)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="petSize">Pet Size</label>
+                        <select id="petSize" name="petSize">
+                            <option value="">Select size</option>
+                            <option value="small">Small (0-25 lbs)</option>
+                            <option value="medium">Medium (25-60 lbs)</option>
+                            <option value="large">Large (60-100 lbs)</option>
+                            <option value="xlarge">Extra Large (100+ lbs)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button type="submit" class="signup-button" id="signupButton">
+                    Sign Up
+                </button>
+            </form>
+            
+            <div class="form-footer">
+                Already have an account? <a href="login.html">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password toggle functionality
+        document.getElementById('passwordToggle').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = this;
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.textContent = '👁️';
+            }
+        });
+
+        // Form validation functions
+        function validateEmail(email) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailPattern.test(email);
+        }
+
+        function validatePassword(password) {
+            // At least 8 characters and contains symbol, number, or uppercase
+            const minLength = password.length >= 8;
+            const hasSpecial = /[!@#$%^&*(),.?":{}|<>0-9A-Z]/.test(password);
+            return minLength && hasSpecial;
+        }
+
+        function showFieldError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(fieldId + 'Error');
+            const formGroup = field.closest('.form-group');
+            
+            formGroup.classList.add('error');
+            formGroup.classList.remove('success');
+            errorElement.textContent = message;
+        }
+
+        function showFieldSuccess(fieldId) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(fieldId + 'Error');
+            const formGroup = field.closest('.form-group');
+            
+            formGroup.classList.add('success');
+            formGroup.classList.remove('error');
+            errorElement.textContent = '';
+        }
+
+        function clearFieldStatus(fieldId) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(fieldId + 'Error');
+            const formGroup = field.closest('.form-group');
+            
+            formGroup.classList.remove('error', 'success');
+            errorElement.textContent = '';
+        }
+
+        // Real-time validation
+        document.getElementById('email').addEventListener('input', function() {
+            const email = this.value.trim();
+            
+            if (!email) {
+                clearFieldStatus('email');
+            } else if (!validateEmail(email)) {
+                showFieldError('email', 'Please enter a valid email address');
+            } else {
+                showFieldSuccess('email');
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            
+            if (!password) {
+                clearFieldStatus('password');
+            } else if (!validatePassword(password)) {
+                showFieldError('password', 'Password must be 8+ characters with symbol, number, or uppercase letter');
+            } else {
+                showFieldSuccess('password');
+            }
+        });
+
+        document.getElementById('petName').addEventListener('input', function() {
+            const petName = this.value.trim();
+            
+            if (!petName) {
+                clearFieldStatus('petName');
+            } else if (petName.length < 2) {
+                showFieldError('petName', 'Pet name must be at least 2 characters');
+            } else {
+                showFieldSuccess('petName');
+            }
+        });
+
+        document.getElementById('petType').addEventListener('change', function() {
+            const petType = this.value;
+            
+            if (!petType) {
+                showFieldError('petType', 'Please select your pet type');
+            } else {
+                showFieldSuccess('petType');
+            }
+        });
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const signupButton = document.getElementById('signupButton');
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Validate required fields
+            let isValid = true;
+            
+            if (!data.email || !validateEmail(data.email)) {
+                showFieldError('email', 'Please enter a valid email address');
+                isValid = false;
+            }
+            
+            if (!data.password || !validatePassword(data.password)) {
+                showFieldError('password', 'Password must be 8+ characters with symbol, number, or uppercase letter');
+                isValid = false;
+            }
+            
+            if (!data.petName || data.petName.trim().length < 2) {
+                showFieldError('petName', 'Pet name must be at least 2 characters');
+                isValid = false;
+            }
+            
+            if (!data.petType) {
+                showFieldError('petType', 'Please select your pet type');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                showMessage('Please fix the errors above and try again.', 'error');
+                return;
+            }
+            
+            // Add loading state
+            signupButton.classList.add('loading');
+            signupButton.textContent = '';
+            
+            // Simulate signup process
+            setTimeout(() => {
+                signupButton.classList.remove('loading');
+                
+                // Success
+                showMessage('Account created successfully! Welcome to Pawfect Match!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }, 2500);
+        });
+
+        // Show message function
+        function showMessage(message, type) {
+            // Remove existing messages
+            const existingMessages = document.querySelectorAll('.success-message, .error-message');
+            existingMessages.forEach(msg => msg.remove());
+            
+            // Create message element
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type === 'success' ? 'success-message' : 'error-message';
+            messageDiv.textContent = message;
+            
+            // Insert message
+            const form = document.getElementById('signupForm');
+            form.insertBefore(messageDiv, form.firstChild);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.remove();
+                }
+            }, 5000);
+        }
+
+        // Auto-focus first input
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('email').focus();
+        });
+
+        // Tab navigation enhancement
+        const inputs = ['email', 'password', 'petName', 'petType', 'petAge', 'petSize'];
+        
+        inputs.forEach((inputId, index) => {
+            document.getElementById(inputId).addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const nextIndex = index + 1;
+                    if (nextIndex < inputs.length) {
+                        document.getElementById(inputs[nextIndex]).focus();
+                    } else {
+                        document.getElementById('signupButton').focus();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

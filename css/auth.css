@@ -1,0 +1,15 @@
+/* Auth pages specific styles */
+.auth-container {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.auth-left {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 3rem;
+}
+/* ... rest of auth styles */

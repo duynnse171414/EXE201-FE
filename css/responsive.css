@@ -1,0 +1,29 @@
+/* Tablet */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .auth-container {
+        flex-direction: column;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1400px;
+    }
+}
