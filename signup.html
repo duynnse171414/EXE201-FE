@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +30,7 @@
             max-width: 1000px;
             min-height: 700px;
             display: flex;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             position: relative;
         }
 
@@ -37,7 +38,7 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
             padding: 10px 15px;
@@ -53,7 +54,7 @@
         }
 
         .back-button:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             transform: translateX(-2px);
         }
 
@@ -88,7 +89,7 @@
         .brand-logo {
             width: 80px;
             height: 80px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -125,7 +126,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             padding: 1rem;
             border-radius: 12px;
             backdrop-filter: blur(10px);
@@ -134,7 +135,7 @@
         .feature-icon {
             width: 40px;
             height: 40px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -198,7 +199,8 @@
             font-size: 0.9rem;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 0.875rem;
             border: 2px solid #e2e8f0;
@@ -208,7 +210,8 @@
             background: #fafbfc;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             outline: none;
             border-color: #6366f1;
             background: white;
@@ -368,8 +371,13 @@
         }
 
         @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
 
         /* Success animation */
@@ -404,9 +412,19 @@
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
         }
 
         /* Form validation styles */
@@ -429,18 +447,19 @@
         }
     </style>
 </head>
+
 <body>
     <div class="signup-container">
         <a href="index.html" class="back-button">
             ← Back to Home
         </a>
-        
+
         <div class="signup-left">
             <div class="signup-content">
                 <div class="brand-logo">🐾</div>
                 <h1 class="signup-title">Find Your Pet's Perfect Match</h1>
                 <p class="signup-subtitle">Tailored accessories, just for them.</p>
-                
+
                 <div class="demo-features">
                     <div class="feature-item">
                         <div class="feature-icon">🧠</div>
@@ -466,36 +485,28 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="signup-right">
             <div class="form-header">
                 <h2 class="form-title">Create Your Account</h2>
-                <p class="form-subtitle">Join Pawfect Match to discover personalized accessories for your beloved pet!</p>
+                <p class="form-subtitle">Join Pawfect Match to discover personalized accessories for your beloved pet!
+                </p>
             </div>
-            
+
             <form class="signup-form" id="signupForm">
                 <div class="form-group full-width">
-                    <label for="email">Email *</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email"
-                        placeholder="your@example.com"
-                        required
-                    >
-                    <div class="error-text" id="emailError"></div>
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="0123456789" pattern="[0-9]{10,11}" required>
+                    <small style="color: #666; font-size: 0.8rem; margin-top: 0.25rem; display: block;">
+                        Enter 10-11 digit phone number
+                    </small>
+                    <div class="error-text" id="phoneError"></div>
                 </div>
-                
+
                 <div class="form-group full-width">
                     <label for="password">Password *</label>
                     <div class="password-input">
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password"
-                            placeholder="••••••••"
-                            required
-                        >
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
                         <button type="button" class="password-toggle" id="passwordToggle">
                             👁️
                         </button>
@@ -506,31 +517,26 @@
                     </div>
                     <div class="error-text" id="passwordError"></div>
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="petName">Pet Name *</label>
-                        <input 
-                            type="text" 
-                            id="petName" 
-                            name="petName"
-                            placeholder="Buddy"
-                            required
-                        >
+                        <input type="text" id="petName" name="petName" placeholder="Buddy" required>
                         <div class="error-text" id="petNameError"></div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="petType">Pet Type *</label>
                         <select id="petType" name="petType" required>
                             <option value="">Select type</option>
                             <option value="dog">Dog</option>
                             <option value="cat">Cat</option>
+                            
                         </select>
                         <div class="error-text" id="petTypeError"></div>
                     </div>
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="petAge">Pet Age</label>
@@ -542,7 +548,7 @@
                             <option value="senior">Senior (7+ years)</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="petSize">Pet Size</label>
                         <select id="petSize" name="petSize">
@@ -554,12 +560,12 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <button type="submit" class="signup-button" id="signupButton">
                     Sign Up
                 </button>
             </form>
-            
+
             <div class="form-footer">
                 Already have an account? <a href="login.html">Log In</a>
             </div>
@@ -567,11 +573,14 @@
     </div>
 
     <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:8080/api'; // Thay đổi URL của bạn
+
         // Password toggle functionality
-        document.getElementById('passwordToggle').addEventListener('click', function() {
+        document.getElementById('passwordToggle').addEventListener('click', function () {
             const passwordInput = document.getElementById('password');
             const toggleButton = this;
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 toggleButton.textContent = '🙈';
@@ -582,9 +591,9 @@
         });
 
         // Form validation functions
-        function validateEmail(email) {
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailPattern.test(email);
+        function validatePhone(phone) {
+            const phonePattern = /^[0-9]{10,11}$/;
+            return phonePattern.test(phone);
         }
 
         function validatePassword(password) {
@@ -598,7 +607,7 @@
             const field = document.getElementById(fieldId);
             const errorElement = document.getElementById(fieldId + 'Error');
             const formGroup = field.closest('.form-group');
-            
+
             formGroup.classList.add('error');
             formGroup.classList.remove('success');
             errorElement.textContent = message;
@@ -608,7 +617,7 @@
             const field = document.getElementById(fieldId);
             const errorElement = document.getElementById(fieldId + 'Error');
             const formGroup = field.closest('.form-group');
-            
+
             formGroup.classList.add('success');
             formGroup.classList.remove('error');
             errorElement.textContent = '';
@@ -618,27 +627,27 @@
             const field = document.getElementById(fieldId);
             const errorElement = document.getElementById(fieldId + 'Error');
             const formGroup = field.closest('.form-group');
-            
+
             formGroup.classList.remove('error', 'success');
             errorElement.textContent = '';
         }
 
         // Real-time validation
-        document.getElementById('email').addEventListener('input', function() {
-            const email = this.value.trim();
-            
-            if (!email) {
-                clearFieldStatus('email');
-            } else if (!validateEmail(email)) {
-                showFieldError('email', 'Please enter a valid email address');
+        document.getElementById('phone').addEventListener('input', function () {
+            const phone = this.value.trim();
+
+            if (!phone) {
+                clearFieldStatus('phone');
+            } else if (!validatePhone(phone)) {
+                showFieldError('phone', 'Please enter a valid 10-11 digit phone number');
             } else {
-                showFieldSuccess('email');
+                showFieldSuccess('phone');
             }
         });
 
-        document.getElementById('password').addEventListener('input', function() {
+        document.getElementById('password').addEventListener('input', function () {
             const password = this.value;
-            
+
             if (!password) {
                 clearFieldStatus('password');
             } else if (!validatePassword(password)) {
@@ -648,9 +657,9 @@
             }
         });
 
-        document.getElementById('petName').addEventListener('input', function() {
+        document.getElementById('petName').addEventListener('input', function () {
             const petName = this.value.trim();
-            
+
             if (!petName) {
                 clearFieldStatus('petName');
             } else if (petName.length < 2) {
@@ -660,9 +669,9 @@
             }
         });
 
-        document.getElementById('petType').addEventListener('change', function() {
+        document.getElementById('petType').addEventListener('change', function () {
             const petType = this.value;
-            
+
             if (!petType) {
                 showFieldError('petType', 'Please select your pet type');
             } else {
@@ -670,56 +679,84 @@
             }
         });
 
-        // Form submission
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
+        // Form submission with API integration
+        document.getElementById('signupForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             const signupButton = document.getElementById('signupButton');
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
-            
+
             // Validate required fields
             let isValid = true;
-            
-            if (!data.email || !validateEmail(data.email)) {
-                showFieldError('email', 'Please enter a valid email address');
+
+            if (!data.phone || !validatePhone(data.phone)) {
+                showFieldError('phone', 'Please enter a valid 10-11 digit phone number');
                 isValid = false;
             }
-            
+
             if (!data.password || !validatePassword(data.password)) {
                 showFieldError('password', 'Password must be 8+ characters with symbol, number, or uppercase letter');
                 isValid = false;
             }
-            
+
             if (!data.petName || data.petName.trim().length < 2) {
                 showFieldError('petName', 'Pet name must be at least 2 characters');
                 isValid = false;
             }
-            
+
             if (!data.petType) {
                 showFieldError('petType', 'Please select your pet type');
                 isValid = false;
             }
-            
+
             if (!isValid) {
                 showMessage('Please fix the errors above and try again.', 'error');
                 return;
             }
-            
+
             // Add loading state
             signupButton.classList.add('loading');
             signupButton.textContent = '';
-            
-            // Simulate signup process
-            setTimeout(() => {
+
+            try {
+                // Call API
+                const response = await fetch(`${API_BASE_URL}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        phone: data.phone,
+                        password: data.password,
+                        petName: data.petName,
+                        petType: data.petType,
+                        petAge: data.petAge || null,
+                        petSize: data.petSize || null
+                    })
+                });
+
+                const responseData = await response.json();
+
                 signupButton.classList.remove('loading');
-                
-                // Success
-                showMessage('Account created successfully! Welcome to Pawfect Match!', 'success');
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 2000);
-            }, 2500);
+                signupButton.textContent = 'Sign Up';
+
+                if (response.ok) {
+                    // Success
+                    showMessage('Account created successfully! Redirecting to login...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } else {
+                    // Error from server
+                    showMessage(responseData.message || 'Signup failed. Please try again.', 'error');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                signupButton.classList.remove('loading');
+                signupButton.textContent = 'Sign Up';
+                showMessage('Connection error. Please check your internet connection.', 'error');
+            }
         });
 
         // Show message function
@@ -727,16 +764,16 @@
             // Remove existing messages
             const existingMessages = document.querySelectorAll('.success-message, .error-message');
             existingMessages.forEach(msg => msg.remove());
-            
+
             // Create message element
             const messageDiv = document.createElement('div');
             messageDiv.className = type === 'success' ? 'success-message' : 'error-message';
             messageDiv.textContent = message;
-            
+
             // Insert message
             const form = document.getElementById('signupForm');
             form.insertBefore(messageDiv, form.firstChild);
-            
+
             // Auto remove after 5 seconds
             setTimeout(() => {
                 if (messageDiv.parentNode) {
@@ -746,15 +783,15 @@
         }
 
         // Auto-focus first input
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('email').focus();
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('phone').focus();
         });
 
         // Tab navigation enhancement
-        const inputs = ['email', 'password', 'petName', 'petType', 'petAge', 'petSize'];
-        
+        const inputs = ['phone', 'password', 'petName', 'petType', 'petAge', 'petSize'];
+
         inputs.forEach((inputId, index) => {
-            document.getElementById(inputId).addEventListener('keypress', function(e) {
+            document.getElementById(inputId).addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
                     const nextIndex = index + 1;
@@ -768,4 +805,5 @@
         });
     </script>
 </body>
+
 </html>

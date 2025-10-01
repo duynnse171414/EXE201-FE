@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +30,7 @@
             max-width: 900px;
             min-height: 600px;
             display: flex;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
             position: relative;
         }
 
@@ -37,7 +38,7 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
             padding: 10px 15px;
@@ -53,7 +54,7 @@
         }
 
         .back-button:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             transform: translateX(-2px);
         }
 
@@ -88,7 +89,7 @@
         .brand-logo {
             width: 80px;
             height: 80px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -124,7 +125,7 @@
         .pet-avatar {
             width: 60px;
             height: 60px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -408,8 +409,13 @@
         }
 
         @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
 
         /* Success animation */
@@ -444,24 +450,35 @@
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="login-container">
         <a href="index.html" class="back-button">
             ← Back to Home
         </a>
-        
+
         <div class="login-left">
             <div class="login-content">
                 <div class="brand-logo">🐾</div>
                 <h1 class="login-title">Pawfect Match</h1>
                 <p class="login-subtitle">Finding the perfect accessories for your furry friend, powered by AI.</p>
-                
+
                 <div class="demo-pets">
                     <div class="pet-avatar">🐶</div>
                     <div class="pet-avatar">🐱</div>
@@ -469,54 +486,45 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="login-right">
             <div class="form-header">
                 <h2 class="form-title">Welcome Back!</h2>
                 <p class="form-subtitle">Log in to find the perfect accessories for your furry friend.</p>
             </div>
-            
+
             <form class="login-form" id="loginForm">
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email"
-                        placeholder="hello@pawfectmatch.com"
-                        required
-                    >
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="0123456789" pattern="[0-9]{10,11}" required>
+                    <small style="color: #666; font-size: 0.85rem; margin-top: 0.25rem; display: block;">
+                        Enter 10-11 digit phone number
+                    </small>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="password-input">
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password"
-                            placeholder="Enter your password"
-                            required
-                        >
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
                         <button type="button" class="password-toggle" id="passwordToggle">
                             👁️
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="forgot-password">
                     <a href="#">Forgot Password?</a>
                 </div>
-                
+
                 <button type="submit" class="login-button" id="loginButton">
                     Login
                 </button>
             </form>
-            
+
             <div class="divider">
                 <span>OR</span>
             </div>
-            
+
             <div class="social-buttons">
                 <a href="#" class="social-btn" id="googleLogin">
                     <span class="social-icon">🌐</span>
@@ -531,7 +539,7 @@
                     Continue with Apple
                 </a>
             </div>
-            
+
             <div class="form-footer">
                 Don't have an account? <a href="signup.html">Sign Up</a>
             </div>
@@ -539,11 +547,14 @@
     </div>
 
     <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:8080/api'; // Thay đổi URL của bạn
+
         // Password toggle functionality
-        document.getElementById('passwordToggle').addEventListener('click', function() {
+        document.getElementById('passwordToggle').addEventListener('click', function () {
             const passwordInput = document.getElementById('password');
             const toggleButton = this;
-            
+
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
                 toggleButton.textContent = '🙈';
@@ -553,49 +564,76 @@
             }
         });
 
-        // Form submission
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Form submission with API integration
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             const loginButton = document.getElementById('loginButton');
-            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value.trim();
             const password = document.getElementById('password').value;
-            
+
+            // Validation
+            if (!phone || !password) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+
             // Add loading state
             loginButton.classList.add('loading');
             loginButton.textContent = '';
-            
-            // Simulate login process
-            setTimeout(() => {
+
+            try {
+                // Call API
+                const response = await fetch(`${API_BASE_URL}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        phone: phone,
+                        password: password
+                    })
+                });
+
+                const data = await response.json();
+
                 loginButton.classList.remove('loading');
-                
-                // Simple validation demo
-                if (email && password.length >= 6) {
+                loginButton.textContent = 'Login';
+
+                if (response.ok) {
+                    // Save token and user info
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+
                     // Success
                     showMessage('Login successful! Redirecting...', 'success');
                     setTimeout(() => {
-                        window.location.href = 'dashboard.html'; // Redirect to dashboard
+                        window.location.href = 'dashboard.html';
                     }, 1500);
                 } else {
-                    // Error
-                    showMessage('Invalid email or password. Please try again.', 'error');
-                    loginButton.textContent = 'Login';
+                    // Error from server
+                    showMessage(data.message || 'Invalid email or password', 'error');
                 }
-            }, 2000);
+            } catch (error) {
+                console.error('Login error:', error);
+                loginButton.classList.remove('loading');
+                loginButton.textContent = 'Login';
+                showMessage('Connection error. Please check your internet connection.', 'error');
+            }
         });
 
         // Social login handlers
-        document.getElementById('googleLogin').addEventListener('click', function(e) {
+        document.getElementById('googleLogin').addEventListener('click', function (e) {
             e.preventDefault();
             showMessage('Google login integration coming soon!', 'info');
         });
 
-        document.getElementById('facebookLogin').addEventListener('click', function(e) {
+        document.getElementById('facebookLogin').addEventListener('click', function (e) {
             e.preventDefault();
             showMessage('Facebook login integration coming soon!', 'info');
         });
 
-        document.getElementById('appleLogin').addEventListener('click', function(e) {
+        document.getElementById('appleLogin').addEventListener('click', function (e) {
             e.preventDefault();
             showMessage('Apple login integration coming soon!', 'info');
         });
@@ -605,16 +643,16 @@
             // Remove existing messages
             const existingMessages = document.querySelectorAll('.success-message, .error-message');
             existingMessages.forEach(msg => msg.remove());
-            
+
             // Create message element
             const messageDiv = document.createElement('div');
             messageDiv.className = type === 'success' ? 'success-message' : 'error-message';
             messageDiv.textContent = message;
-            
+
             // Insert message
             const form = document.getElementById('loginForm');
             form.insertBefore(messageDiv, form.firstChild);
-            
+
             // Auto remove after 5 seconds
             setTimeout(() => {
                 if (messageDiv.parentNode) {
@@ -624,10 +662,10 @@
         }
 
         // Input validation
-        document.getElementById('email').addEventListener('input', function() {
+        document.getElementById('email').addEventListener('input', function () {
             const email = this.value;
             const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            
+
             if (email && !emailPattern.test(email)) {
                 this.style.borderColor = '#ef4444';
             } else {
@@ -635,9 +673,9 @@
             }
         });
 
-        document.getElementById('password').addEventListener('input', function() {
+        document.getElementById('password').addEventListener('input', function () {
             const password = this.value;
-            
+
             if (password && password.length < 6) {
                 this.style.borderColor = '#ef4444';
             } else {
@@ -646,16 +684,17 @@
         });
 
         // Auto-focus first input
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('email').focus();
         });
 
         // Enter key navigation
-        document.getElementById('email').addEventListener('keypress', function(e) {
+        document.getElementById('email').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 document.getElementById('password').focus();
             }
         });
     </script>
 </body>
+
 </html>
