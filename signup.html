@@ -498,7 +498,7 @@
                     <label for="phone">Phone Number *</label>
                     <input type="tel" id="phone" name="phone" placeholder="0123456789" pattern="[0-9]{10,11}" required>
                     <small style="color: #666; font-size: 0.8rem; margin-top: 0.25rem; display: block;">
-                        Enter 10-11 digit phone number
+                        Enter 10 digit phone number
                     </small>
                     <div class="error-text" id="phoneError"></div>
                 </div>
@@ -513,7 +513,6 @@
                     </div>
                     <div class="password-requirements">
                         8 or more characters<br>
-                        Has a symbol, number, or uppercase letter
                     </div>
                     <div class="error-text" id="passwordError"></div>
                 </div>
@@ -531,7 +530,7 @@
                             <option value="">Select type</option>
                             <option value="dog">Dog</option>
                             <option value="cat">Cat</option>
-                            
+
                         </select>
                         <div class="error-text" id="petTypeError"></div>
                     </div>
@@ -540,24 +539,28 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="petAge">Pet Age</label>
-                        <select id="petAge" name="petAge">
+                        <select id="petAge" name="petAge" required>
                             <option value="">Select age</option>
                             <option value="puppy">Puppy/Kitten (0-1 year)</option>
                             <option value="young">Young (1-3 years)</option>
                             <option value="adult">Adult (3-7 years)</option>
                             <option value="senior">Senior (7+ years)</option>
                         </select>
+                        <div class="error-text" id="petAgeError"></div>
+
                     </div>
 
                     <div class="form-group">
                         <label for="petSize">Pet Size</label>
-                        <select id="petSize" name="petSize">
+                        <select id="petSize" name="petSize" required>
                             <option value="">Select size</option>
                             <option value="small">Small (0-25 lbs)</option>
                             <option value="medium">Medium (25-60 lbs)</option>
                             <option value="large">Large (60-100 lbs)</option>
                             <option value="xlarge">Extra Large (100+ lbs)</option>
                         </select>
+                        <div class="error-text" id="petSizeError"></div>
+
                     </div>
                 </div>
 
@@ -639,7 +642,7 @@
             if (!phone) {
                 clearFieldStatus('phone');
             } else if (!validatePhone(phone)) {
-                showFieldError('phone', 'Please enter a valid 10-11 digit phone number');
+                showFieldError('phone', 'Please enter a valid 10 digit phone number');
             } else {
                 showFieldSuccess('phone');
             }
@@ -651,7 +654,7 @@
             if (!password) {
                 clearFieldStatus('password');
             } else if (!validatePassword(password)) {
-                showFieldError('password', 'Password must be 8+ characters with symbol, number, or uppercase letter');
+                showFieldError('password', 'Password must be 8+ characters');
             } else {
                 showFieldSuccess('password');
             }
@@ -691,12 +694,12 @@
             let isValid = true;
 
             if (!data.phone || !validatePhone(data.phone)) {
-                showFieldError('phone', 'Please enter a valid 10-11 digit phone number');
+                showFieldError('phone', 'Please enter a valid 10 digit phone number');
                 isValid = false;
             }
 
             if (!data.password || !validatePassword(data.password)) {
-                showFieldError('password', 'Password must be 8+ characters with symbol, number, or uppercase letter');
+                showFieldError('password', 'Password must be 8+ characters');
                 isValid = false;
             }
 
@@ -710,6 +713,17 @@
                 isValid = false;
             }
 
+            if (!data.petAge) {
+                showFieldError('petAge', 'Please select your pet age');
+                isValid = false;
+            }
+
+            if (!data.petSize) {
+                showFieldError('petSize', 'Please select your pet size');
+                isValid = false;
+            }
+
+
             if (!isValid) {
                 showMessage('Please fix the errors above and try again.', 'error');
                 return;
@@ -720,43 +734,54 @@
             signupButton.textContent = '';
 
             try {
-                // Call API
                 const response = await fetch(`${API_BASE_URL}/register`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         phone: data.phone,
                         password: data.password,
                         petName: data.petName,
                         petType: data.petType,
-                        petAge: data.petAge || null,
-                        petSize: data.petSize || null
+                        petAge: data.petAge,
+                        petSize: data.petSize
                     })
                 });
 
-                const responseData = await response.json();
+                let resJson = null, resText = '';
+                const ct = (response.headers.get('content-type') || '').toLowerCase();
+                if (ct.includes('application/json')) {
+                    try { resJson = await response.json(); } catch { }
+                } else {
+                    try { resText = await response.text(); } catch { }
+                }
 
                 signupButton.classList.remove('loading');
                 signupButton.textContent = 'Sign Up';
 
                 if (response.ok) {
-                    // Success
                     showMessage('Account created successfully! Redirecting to login...', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 2000);
-                } else {
-                    // Error from server
-                    showMessage(responseData.message || 'Signup failed. Please try again.', 'error');
+                    setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+                    return;
                 }
+
+                // ---- DUPLICATE PHONE (body có thể chỉ là "Duplicate phone!") ----
+                const msg = (resJson?.message || resJson?.error || resText || '').toLowerCase();
+                if (response.status === 409 || response.status === 400 && msg.includes('duplicate') && msg.includes('phone')) {
+                    showFieldError('phone', 'Duplicate phone');
+                    showMessage('Duplicate phone', 'error');
+                    return;
+                }
+
+                // Lỗi khác
+                showMessage(resJson?.message || resText || 'Signup failed. Please try again.', 'error');
+
             } catch (error) {
                 console.error('Signup error:', error);
                 signupButton.classList.remove('loading');
                 signupButton.textContent = 'Sign Up';
-                showMessage('Connection error. Please check your internet connection.', 'error');
+                showMessage('Connection/CORS error or invalid server response. Please try again.', 'error');
             }
+
         });
 
         // Show message function

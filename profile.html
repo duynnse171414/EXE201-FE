@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - Pawfect Match</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #111
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 1000px
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
+            overflow: hidden
+        }
+
+        .card-head {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eef2f7;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937
+        }
+
+        .back {
+            color: #6366f1;
+            text-decoration: none;
+            border: 2px solid #6366f1;
+            padding: .4rem .8rem;
+            border-radius: 999px;
+            font-weight: 600
+        }
+
+        .content {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem;
+            flex-wrap: wrap
+        }
+
+        .left,
+        .right {
+            flex: 1;
+            min-width: 280px
+        }
+
+        .avatar-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 1.5rem
+        }
+
+        .avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: #6366f1;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            padding: .7rem 1rem;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff
+        }
+
+        .btn-outline {
+            border-color: #e5e7eb;
+            background: #fff;
+            color: #111
+        }
+
+        .btn:disabled {
+            opacity: .7;
+            cursor: not-allowed
+        }
+
+        .hint {
+            color: #6b7280;
+            font-size: .85rem
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem
+        }
+
+        .field {
+            margin-bottom: 1rem
+        }
+
+        label {
+            display: block;
+            margin-bottom: .4rem;
+            font-weight: 600;
+            color: #374151
+        }
+
+        input {
+            width: 100%;
+            padding: .9rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: #fafbfc;
+            transition: .2s
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, .1)
+        }
+
+        .error-text {
+            color: #ef4444;
+            font-size: .8rem;
+            margin-top: .3rem
+        }
+
+        .success {
+            background: #10b981;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            text-align: center
+        }
+
+        .error {
+            background: #ef4444;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            text-align: center
+        }
+
+        .row-actions {
+            display: flex;
+            gap: .7rem;
+            justify-content: flex-end;
+            margin-top: 1rem
+        }
+
+        @media (max-width:640px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="card">
+            <div class="card-head">
+                <div class="card-title">Your Profile</div>
+                <a class="back" href="index.html">← Back to Home</a>
+            </div>
+
+            <div class="content">
+                <!-- LEFT: Avatar -->
+                <div class="left">
+                    <div class="avatar-wrap">
+                        <div id="avatar" class="avatar" aria-label="Avatar"></div>
+                        <input id="avatarInput" type="file" accept="image/*" hidden>
+                        <div class="row-actions">
+                            <button id="changeAvatarBtn" class="btn btn-outline" type="button">Change avatar</button>
+                            <button id="uploadAvatarBtn" class="btn btn-primary" type="button">Upload</button>
+                        </div>
+                        <div class="hint">PNG/JPG, &lt; 5MB. Preview ngay, click “Upload” để lưu.</div>
+                        <div id="avatarMsg" class="hint"></div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Form -->
+                <div class="right">
+                    <div id="topMsg"></div>
+
+                    <form id="profileForm" novalidate>
+                        <div class="grid">
+                            <div class="field">
+                                <label for="name">Full Name *</label>
+                                <input id="name" name="name" placeholder="Your name" required>
+                                <div id="nameError" class="error-text"></div>
+                            </div>
+
+                            <div class="field">
+                                <label for="phone">Phone Number *</label>
+                                <input id="phone" name="phone" inputmode="numeric" placeholder="0123456789" required>
+                                <div id="phoneError" class="error-text"></div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" placeholder="you@example.com">
+                            <div id="emailError" class="error-text"></div>
+                        </div>
+
+                        <div class="row-actions">
+                            <button type="button" id="cancelBtn" class="btn btn-outline">Reset</button>
+                            <button type="submit" id="saveBtn" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ====== CONFIG ======
+        const API_BASE_URL = 'http://localhost:8080/api'; // đổi nếu cần
+
+        // ====== UTIL ======
+        function getToken() { return localStorage.getItem('authToken'); }
+        function safeGetUser() {
+            const raw = localStorage.getItem('user'); if (!raw) return null;
+            try { const o = JSON.parse(raw); return o && typeof o === 'object' ? o : null; } catch { return null; }
+        }
+        function setUser(u) { localStorage.setItem('user', JSON.stringify(u)); }
+        function showTop(type, msg) {
+            const box = document.getElementById('topMsg');
+            box.innerHTML = msg ? `<div class="${type}">${msg}</div>` : '';
+        }
+        function setError(id, msg) { document.getElementById(id + 'Error').textContent = msg || ''; }
+        function clearErrors() { ['name', 'phone', 'email'].forEach(id => setError(id, '')); }
+
+        // Parse an toàn
+        async function parseSafe(response) {
+            let json = null, text = ''; const ct = (response.headers.get('content-type') || '').toLowerCase();
+            if (ct.includes('application/json')) { try { json = await response.json(); } catch { } }
+            else { try { text = await response.text(); } catch { } }
+            return { json, text };
+        }
+
+        // ====== LOAD PROFILE ======
+        const form = document.getElementById('profileForm');
+        const nameEl = document.getElementById('name');
+        const phoneEl = document.getElementById('phone');
+        const emailEl = document.getElementById('email');
+        const avatarBox = document.getElementById('avatar');
+        const avatarInput = document.getElementById('avatarInput');
+        const changeAvatarBtn = document.getElementById('changeAvatarBtn');
+        const uploadAvatarBtn = document.getElementById('uploadAvatarBtn');
+        const avatarMsg = document.getElementById('avatarMsg');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+
+        let currentUser = null;
+        let pendingAvatarFile = null;
+
+        function fillForm(u) {
+            nameEl.value = u?.name || u?.fullName || '';
+            phoneEl.value = u?.phone || '';
+            emailEl.value = u?.email || '';
+            const displayName = (u?.name || u?.fullName || u?.phone || 'U').trim();
+            if (u?.avatar && /^https?:/.test(u.avatar)) {
+                avatarBox.style.backgroundImage = `url('${u.avatar}')`;
+                avatarBox.textContent = '';
+            } else {
+                avatarBox.style.backgroundImage = 'none';
+                avatarBox.textContent = (displayName[0] || 'U').toUpperCase();
+            }
+        }
+
+        async function fetchMe() {
+            const token = getToken();
+            if (!token) { window.location.href = 'login.html'; return; }
+
+            // B1: dùng localStorage trước
+            const cached = safeGetUser();
+            if (cached) { currentUser = cached; fillForm(cached); }
+
+            // B2: gọi API (nếu có) để đồng bộ
+            try {
+                const res = await fetch(`${API_BASE_URL}/me`, { headers: { 'Authorization': `Bearer ${token}` } });
+                if (!res.ok) return; // không chặn UI
+                const { json } = await parseSafe(res);
+                if (json && typeof json === 'object') {
+                    currentUser = { ...cached, ...json };
+                    setUser(currentUser);
+                    fillForm(currentUser);
+                }
+            } catch {/* bỏ qua */ }
+        }
+
+        // ====== VALIDATION ======
+        function validPhone(v) { return /^[0-9]{10,11}$/.test((v || '').trim()); }
+        function validName(v) { return (v || '').trim().length >= 2; }
+        function validEmail(v) { if (!v) return true; return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+        nameEl.addEventListener('input', () => setError('name', validName(nameEl.value) ? '' : 'Name must be at least 2 characters'));
+        phoneEl.addEventListener('input', () => {
+            phoneEl.value = phoneEl.value.replace(/\D/g, '');
+            setError('phone', validPhone(phoneEl.value) ? '' : 'Phone must be 10–11 digits');
+        });
+        emailEl.addEventListener('input', () => setError('email', validEmail(emailEl.value) ? '' : 'Invalid email'));
+
+        // ====== AVATAR ======
+        changeAvatarBtn.addEventListener('click', () => avatarInput.click());
+        avatarInput.addEventListener('change', () => {
+            const f = avatarInput.files?.[0]; if (!f) return;
+            if (f.size > 5 * 1024 * 1024) { avatarMsg.textContent = 'File too large (>5MB)'; return; }
+            pendingAvatarFile = f;
+            const url = URL.createObjectURL(f);
+            avatarBox.style.backgroundImage = `url('${url}')`; avatarBox.textContent = '';
+            avatarMsg.textContent = 'Preview ready. Click "Upload" to save.';
+        });
+
+        uploadAvatarBtn.addEventListener('click', async () => {
+            if (!pendingAvatarFile) { avatarMsg.textContent = 'Please choose an image first.'; return; }
+            const token = getToken();
+            const fd = new FormData(); fd.append('avatar', pendingAvatarFile);
+            uploadAvatarBtn.disabled = true;
+            try {
+                const res = await fetch(`${API_BASE_URL}/me/avatar`, {
+                    method: 'POST', headers: { 'Authorization': `Bearer ${token}` }, body: fd
+                });
+                const { json, text } = await parseSafe(res);
+                uploadAvatarBtn.disabled = false;
+
+                if (res.ok) {
+                    const avatarUrl = json?.avatar || json?.url || text || ''; // tuỳ backend
+                    currentUser = { ...(currentUser || {}), avatar: avatarUrl };
+                    setUser(currentUser);
+                    avatarMsg.textContent = 'Avatar updated!';
+                } else {
+                    const msg = (json?.message || json?.error || text || 'Upload failed');
+                    avatarMsg.textContent = msg;
+                }
+            } catch (e) {
+                uploadAvatarBtn.disabled = false;
+                avatarMsg.textContent = 'Network/CORS error.';
+            }
+        });
+
+        // ====== SAVE PROFILE ======
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearErrors(); showTop('', '');
+
+            const name = nameEl.value.trim();
+            const phone = phoneEl.value.trim();
+            const email = emailEl.value.trim();
+
+            let ok = true;
+            if (!validName(name)) { setError('name', 'Name must be at least 2 characters'); ok = false; }
+            if (!validPhone(phone)) { setError('phone', 'Phone must be 10–11 digits'); ok = false; }
+            if (!validEmail(email)) { setError('email', 'Invalid email'); ok = false; }
+            if (!ok) { showTop('error', 'Please fix the errors above.'); return; }
+
+            saveBtn.disabled = true;
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/me`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${getToken()}`
+                    },
+                    body: JSON.stringify({ name, phone, email })
+                });
+
+                const { json, text } = await parseSafe(res);
+                saveBtn.disabled = false;
+
+                if (res.ok) {
+                    // cập nhật cache
+                    currentUser = { ...(currentUser || {}), name, phone, email, ...(json || {}) };
+                    setUser(currentUser);
+                    showTop('success', 'Profile updated successfully!');
+                } else {
+                    const msg = (json?.message || json?.error || text || '').toLowerCase();
+
+                    // Duplicate phone
+                    if (res.status === 409 || (msg.includes('duplicate') && msg.includes('phone'))) {
+                        setError('phone', 'Duplicate phone');
+                        showTop('error', 'Duplicate phone');
+                        return;
+                    }
+
+                    showTop('error', json?.message || text || 'Update failed. Please try again.');
+                }
+
+            } catch (err) {
+                console.error('Profile update error:', err);
+                saveBtn.disabled = false;
+                showTop('error', 'Connection/CORS error or invalid server response.');
+            }
+        });
+
+        // Reset về dữ liệu hiện tại
+        cancelBtn.addEventListener('click', () => { fillForm(currentUser || {}); clearErrors(); showTop('', ''); });
+
+        // Khởi động
+        document.addEventListener('DOMContentLoaded', fetchMe);
+    </script>
+
+    <!-- để giữ user menu góc phải nếu bạn dùng trên index -->
+    <script src="main.js"></script>
+</body>
+
+</html>

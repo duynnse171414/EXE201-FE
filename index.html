@@ -1,32 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pawfect Match - Find Your Pet's Perfect Match</title>
     <style>
         * {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            box-sizing: border-box
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f8f9fa;
-            min-height: 100vh;
+            min-height: 100vh
         }
 
-        /* Navigation */
+        /* ---- Helpers ---- */
+        .hidden {
+            display: none !important
+        }
+
+        .with-navbar {
+            margin-top: 80px
+        }
+
+        .btn {
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: .8rem 1rem;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .btn-outline {
+            border-color: #e5e7eb;
+            background: #fff
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: #fff
+        }
+
+        .hint {
+            color: #6b7280;
+            font-size: .85rem
+        }
+
+        /* ---- Navigation ---- */
         .navbar {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
             padding: 1rem 2rem;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 100;
+            z-index: 100
         }
 
         .nav-content {
@@ -34,36 +67,37 @@
             justify-content: space-between;
             align-items: center;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 0 auto
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #333;
+            color: #333
         }
 
         .nav-links {
             display: flex;
             gap: 2rem;
-            list-style: none;
+            list-style: none
         }
 
         .nav-links a {
             text-decoration: none;
             color: #666;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: color .3s ease
         }
 
-        .nav-links a:hover, .nav-links a.active {
-            color: #6366f1;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #6366f1
         }
 
         .nav-right {
             display: flex;
             gap: 1rem;
-            align-items: center;
+            align-items: center
         }
 
         .icon-btn {
@@ -71,109 +105,106 @@
             border: none;
             font-size: 1.2rem;
             cursor: pointer;
-            padding: 0.5rem;
+            padding: .5rem;
             border-radius: 50%;
-            transition: background 0.3s ease;
-            text-decoration: none;
+            transition: background .3s ease;
             color: #666;
+            text-decoration: none
         }
 
         .icon-btn:hover {
             background: #f1f5f9;
-            color: #6366f1;
+            color: #6366f1
         }
 
         .auth-buttons {
             display: flex;
-            gap: 0.5rem;
-            align-items: center;
+            gap: .5rem;
+            align-items: center
         }
 
         .btn-login {
-            padding: 0.5rem 1rem;
+            padding: .5rem 1rem;
             background: transparent;
             color: #6366f1;
             border: 2px solid #6366f1;
             border-radius: 25px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-size: .9rem;
+            transition: .2s
         }
 
         .btn-login:hover {
             background: #6366f1;
-            color: white;
+            color: #fff
         }
 
         .btn-signup {
-            padding: 0.5rem 1rem;
+            padding: .5rem 1rem;
             background: #6366f1;
-            color: white;
+            color: #fff;
             border: 2px solid #6366f1;
             border-radius: 25px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-size: .9rem;
+            transition: .2s
         }
 
         .btn-signup:hover {
             background: #5855eb;
             border-color: #5855eb;
-            transform: translateY(-1px);
+            transform: translateY(-1px)
         }
 
-        /* Main Content */
+        /* ---- Main Content ---- */
         .main-content {
-            margin-top: 80px;
+            /* kept for compatibility */
         }
 
-        /* Hero Section */
+        /* ---- Hero ---- */
         .hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            color: #fff;
             text-align: center;
             padding: 6rem 2rem;
             position: relative;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>')
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto
         }
 
         .hero h1 {
             font-size: 3.5rem;
             font-weight: bold;
             margin-bottom: 1.5rem;
-            line-height: 1.2;
+            line-height: 1.2
         }
 
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 2.5rem;
-            opacity: 0.9;
+            opacity: .9
         }
 
         .hero-buttons {
             display: flex;
             gap: 1rem;
             justify-content: center;
-            flex-wrap: wrap;
+            flex-wrap: wrap
         }
 
         .btn-hero {
@@ -181,40 +212,40 @@
             border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
+            transition: .3s;
+            display: inline-block
         }
 
         .btn-hero-primary {
-            background: white;
-            color: #6366f1;
+            background: #fff;
+            color: #6366f1
         }
 
         .btn-hero-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .2)
         }
 
         .btn-hero-secondary {
             background: transparent;
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, .3)
         }
 
         .btn-hero-secondary:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: white;
+            background: rgba(255, 255, 255, .1);
+            border-color: #fff
         }
 
-        /* Features Section */
+        /* ---- Features ---- */
         .features {
             padding: 6rem 2rem;
-            background: white;
+            background: #fff
         }
 
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 0 auto
         }
 
         .section-title {
@@ -222,13 +253,13 @@
             font-size: 2.5rem;
             font-weight: bold;
             color: #333;
-            margin-bottom: 4rem;
+            margin-bottom: 4rem
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
+            gap: 3rem
         }
 
         .feature-card {
@@ -236,12 +267,12 @@
             padding: 2rem;
             background: #f8fafc;
             border-radius: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform .3s, box-shadow .3s
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, .1)
         }
 
         .feature-icon {
@@ -254,52 +285,51 @@
             justify-content: center;
             margin: 0 auto 1.5rem;
             font-size: 2rem;
-            color: white;
+            color: #fff
         }
 
         .feature-card h3 {
             font-size: 1.3rem;
             font-weight: bold;
             color: #333;
-            margin-bottom: 1rem;
+            margin-bottom: 1rem
         }
 
         .feature-card p {
             color: #666;
-            line-height: 1.6;
+            line-height: 1.6
         }
 
-        /* CTA Section */
+        /* ---- CTA & Trust ---- */
         .cta {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
+            color: #fff;
             text-align: center;
-            padding: 6rem 2rem;
+            padding: 6rem 2rem
         }
 
         .cta h2 {
             font-size: 2.5rem;
             font-weight: bold;
-            margin-bottom: 1rem;
+            margin-bottom: 1rem
         }
 
         .cta p {
             font-size: 1.1rem;
             margin-bottom: 2.5rem;
-            opacity: 0.9;
+            opacity: .9
         }
 
-        /* Trust Section */
         .trust {
-            background: white;
+            background: #fff;
             padding: 4rem 2rem;
-            text-align: center;
+            text-align: center
         }
 
         .trust h2 {
             font-size: 2rem;
             color: #333;
-            margin-bottom: 3rem;
+            margin-bottom: 3rem
         }
 
         .trust-logos {
@@ -307,7 +337,7 @@
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            gap: 3rem;
+            gap: 3rem
         }
 
         .trust-logo {
@@ -318,68 +348,68 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
+            opacity: .7;
+            transition: opacity .3s
         }
 
         .trust-logo:hover {
-            opacity: 1;
+            opacity: 1
         }
 
-        /* Footer */
+        /* ---- Footer ---- */
         .footer {
             background: #333;
-            color: white;
+            color: #fff;
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 3rem 2rem
         }
 
         .footer-brand {
             font-size: 1.5rem;
             font-weight: bold;
-            margin-bottom: 1rem;
+            margin-bottom: 1rem
         }
 
         .newsletter {
             max-width: 400px;
-            margin: 2rem auto 0;
+            margin: 2rem auto 0
         }
 
         .newsletter p {
             margin-bottom: 1rem;
-            color: #ccc;
+            color: #ccc
         }
 
         .newsletter-form {
             display: flex;
-            gap: 0.5rem;
+            gap: .5rem
         }
 
         .newsletter-form input {
             flex: 1;
-            padding: 0.75rem;
+            padding: .75rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 8px
         }
 
         .newsletter-form button {
-            padding: 0.75rem 1.5rem;
+            padding: .75rem 1.5rem;
             background: #6366f1;
-            color: white;
+            color: #fff;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 600
         }
 
-        /* Mobile menu */
+        /* ---- Mobile menu ---- */
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: #333;
+            color: #333
         }
 
         .mobile-menu {
@@ -388,19 +418,19 @@
             top: 100%;
             left: 0;
             right: 0;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            z-index: 1000;
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+            z-index: 1000
         }
 
         .mobile-menu.active {
-            display: block;
+            display: block
         }
 
         .mobile-nav-links {
             display: flex;
             flex-direction: column;
-            padding: 1rem 0;
+            padding: 1rem 0
         }
 
         .mobile-nav-links a {
@@ -408,100 +438,219 @@
             text-decoration: none;
             color: #666;
             font-weight: 500;
-            transition: background 0.3s ease;
+            transition: background .3s
         }
 
         .mobile-nav-links a:hover {
             background: #f8fafc;
-            color: #6366f1;
+            color: #6366f1
         }
 
         .mobile-auth-buttons {
             padding: 1rem 2rem;
             display: flex;
             gap: 1rem;
-            flex-direction: column;
+            flex-direction: column
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
+        /* ---- User chip ---- */
+        .user-dropdown {
+            position: relative;
+            margin-left: .5rem
+        }
 
+        .user-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .5rem .75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 999px;
+            background: #fff;
+            cursor: pointer;
+            font-weight: 500
+        }
+
+        .user-btn .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #6366f1;
+            color: #fff;
+            font-size: .9rem;
+            user-select: none;
+            background-size: cover;
+            background-position: center
+        }
+
+        .user-btn .user-name {
+            max-width: 120px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .user-btn .caret {
+            opacity: .7
+        }
+
+        .user-menu {
+            position: absolute;
+            right: 0;
+            top: calc(100% + .5rem);
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+            min-width: 160px;
+            padding: .5rem
+        }
+
+        .user-menu a {
+            display: block;
+            padding: .6rem .8rem;
+            border-radius: 8px;
+            color: #111;
+            text-decoration: none
+        }
+
+        .user-menu a:hover {
+            background: #f8fafc
+        }
+
+        /* ---- Pet Profile card layout ---- */
+        .pp-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 18px 38px rgba(0, 0, 0, .12);
+            overflow: hidden
+        }
+
+        .pp-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            border-bottom: 1px solid #eef2f7
+        }
+
+        .pp-title {
+            font-weight: 700
+        }
+
+        .pp-section {
+            padding: 20px;
+            border-top: 1px solid #f1f5f9
+        }
+
+        .pp-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+
+        .pp-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px
+        }
+
+        .pp-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 16px;
+            background: #eef2ff;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem
+        }
+
+        @media (max-width:768px) {
             .nav-links {
-                display: none;
+                display: none
             }
 
             .auth-buttons {
-                display: none;
+                display: none
             }
 
             .mobile-menu-btn {
-                display: block;
+                display: block
+            }
+
+            .hero h1 {
+                font-size: 2.5rem
             }
 
             .hero-buttons {
                 flex-direction: column;
-                align-items: center;
+                align-items: center
             }
 
             .features-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr
             }
 
             .trust-logos {
-                gap: 2rem;
+                gap: 2rem
             }
 
             .newsletter-form {
-                flex-direction: column;
+                flex-direction: column
             }
 
             .navbar {
-                position: relative;
+                position: relative
+            }
+
+            .pp-grid-2,
+            .pp-grid-3 {
+                grid-template-columns: 1fr
             }
         }
     </style>
 </head>
+
 <body>
-    <!-- Navigation -->
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-content">
             <div class="logo">Pawfect Match</div>
-            
-            <!-- Desktop Navigation -->
+
             <ul class="nav-links">
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="#">Profile</a></li>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#pet-profile" id="goPetProfile">Profile</a></li>
                 <li><a href="#">Shop</a></li>
                 <li><a href="#">Order</a></li>
                 <li><a href="#">AI Analysis</a></li>
                 <li><a href="#">Premium</a></li>
                 <li><a href="#">Chat</a></li>
             </ul>
-            
-            <!-- Desktop Right Side -->
+
             <div class="nav-right">
                 <a href="#" class="icon-btn">🔍</a>
                 <a href="#" class="icon-btn">❤️</a>
                 <a href="#" class="icon-btn">🛒</a>
-                
+
                 <div class="auth-buttons">
                     <a href="login.html" class="btn-login">Log In</a>
                     <a href="signup.html" class="btn-signup">Sign Up</a>
                 </div>
             </div>
 
-            <!-- Mobile Menu Button -->
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
         </div>
 
-        <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobileMenu">
             <div class="mobile-nav-links">
-                <a href="#" class="active">Home</a>
-                <a href="#">Profile</a>
+                <a href="#home" class="active">Home</a>
+                <a href="#pet-profile" id="goPetProfileMobile">Profile</a>
                 <a href="#">Shop</a>
                 <a href="#">Order</a>
                 <a href="#">AI Analysis</a>
@@ -515,13 +664,13 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero">
+    <!-- HOME PAGE -->
+    <main id="homePage" class="with-navbar">
+        <section id="home" class="hero">
             <div class="hero-content">
                 <h1>Discover Your Pet's Perfect Match</h1>
-                <p>Our AI-driven app helps you find the ideal accessories, toys, and food tailored to your pet's unique personality and needs.</p>
+                <p>Our AI-driven app helps you find the ideal accessories, toys, and food tailored to your pet's unique
+                    personality and needs.</p>
                 <div class="hero-buttons">
                     <a href="signup.html" class="btn-hero btn-hero-primary">Get Started</a>
                     <a href="#features" class="btn-hero btn-hero-secondary">Learn More →</a>
@@ -529,7 +678,6 @@
             </div>
         </section>
 
-        <!-- Features Section -->
         <section id="features" class="features">
             <div class="container">
                 <h2 class="section-title">Why Choose Pawfect Match?</h2>
@@ -537,38 +685,43 @@
                     <div class="feature-card">
                         <div class="feature-icon">🧠</div>
                         <h3>AI-Powered Matching</h3>
-                        <p>Our advanced AI analyzes your pet's unique traits and behaviors to recommend accessories that truly fit their needs and personality.</p>
+                        <p>Our advanced AI analyzes your pet's unique traits and behaviors to recommend accessories that
+                            truly fit their needs and personality.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">👥</div>
                         <h3>Personalized Profiles</h3>
-                        <p>Create detailed profiles for each of your beloved pets, ensuring every recommendation is as unique as they are.</p>
+                        <p>Create detailed profiles for each of your beloved pets, ensuring every recommendation is as
+                            unique as they are.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">🛒</div>
                         <h3>Seamless Shopping</h3>
-                        <p>Browse, select, and purchase recommended items directly within the app with a smooth and secure checkout process.</p>
+                        <p>Browse, select, and purchase recommended items directly within the app with a smooth and
+                            secure checkout process.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">📦</div>
                         <h3>Order Tracking</h3>
-                        <p>Keep an eye on your pet's new favorite items with real-time tracking from purchase to delivery right to your door.</p>
+                        <p>Keep an eye on your pet's new favorite items with real-time tracking from purchase to
+                            delivery right to your door.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">❤️</div>
                         <h3>Curated Collections</h3>
-                        <p>Explore expertly curated collections of toys, apparel, and food, designed for every pet's comfort and joy.</p>
+                        <p>Explore expertly curated collections of toys, apparel, and food, designed for every pet's
+                            comfort and joy.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">✅</div>
                         <h3>Quality Guaranteed</h3>
-                        <p>We partner with trusted brands to ensure all recommended products meet high standards of safety and durability.</p>
+                        <p>We partner with trusted brands to ensure all recommended products meet high standards of
+                            safety and durability.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Section -->
         <section class="cta">
             <div class="container">
                 <h2>Ready to Find the Perfect Match for Your Pet?</h2>
@@ -577,7 +730,6 @@
             </div>
         </section>
 
-        <!-- Trust Section -->
         <section class="trust">
             <div class="container">
                 <h2>Trusted by Pet Lovers Everywhere</h2>
@@ -592,6 +744,115 @@
             </div>
         </section>
     </main>
+
+    <!-- PET PROFILE PAGE (SPA) -->
+    <section id="petProfilePage" class="with-navbar hidden" style="max-width:1200px;margin:0 auto 48px;padding:0 16px">
+        <div class="pp-card">
+            <div class="pp-head">
+                <div class="pp-title">Create Your Pet's Profile</div>
+                <a href="#home" class="btn btn-outline">← Back to Home</a>
+            </div>
+
+            <!-- Avatar -->
+            <div class="pp-section" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+                <div id="petAvatar" class="pp-avatar">🐾</div>
+                <div>
+                    <input id="petPhotoInput" type="file" accept="image/*" hidden>
+                    <button id="choosePetPhoto" class="btn btn-outline" type="button">Choose photo</button>
+                    <button id="uploadPetPhoto" class="btn btn-primary" type="button">Upload</button>
+                    <div id="petPhotoMsg" class="hint">PNG/JPG &lt; 5MB.</div>
+                </div>
+            </div>
+
+            <div id="petTopMsg" class="pp-section" style="padding-top:0;border-top:none"></div>
+
+            <!-- Form -->
+            <form id="petForm" class="pp-section" novalidate>
+                <h3 style="margin:0 0 10px">Basic Information</h3>
+                <div class="pp-grid-2">
+                    <div>
+                        <label>Pet Name *</label>
+                        <input id="petName" required placeholder="Buddy">
+                        <div id="petNameError" class="hint" style="color:#ef4444"></div>
+                    </div>
+                    <div>
+                        <label>Species *</label>
+                        <select id="species" required>
+                            <option value="">Select species</option>
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                        </select>
+                        <div id="speciesError" class="hint" style="color:#ef4444"></div>
+                    </div>
+                </div>
+
+                <div class="pp-grid-3" style="margin-top:12px">
+                    <div>
+                        <label>Breed</label>
+                        <input id="breed" placeholder="e.g., Golden Retriever">
+                    </div>
+                    <div>
+                        <label>Age (years)</label>
+                        <input id="ageYears" type="number" min="0" step="0.1">
+                    </div>
+                    <div>
+                        <label>Weight (kg)</label>
+                        <input id="weightKg" type="number" min="0" step="0.1">
+                    </div>
+                </div>
+
+                <h3 style="margin:16px 0 10px">Physical Traits</h3>
+                <div class="pp-grid-3">
+                    <div>
+                        <label>Size *</label>
+                        <select id="size" required>
+                            <option value="">Select size</option>
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                            <option value="xlarge">Extra Large</option>
+                        </select>
+                        <div id="sizeError" class="hint" style="color:#ef4444"></div>
+                    </div>
+                    <div>
+                        <label>Coat Type</label>
+                        <select id="coatType">
+                            <option value="">Select coat type</option>
+                            <option value="short">Short</option>
+                            <option value="medium">Medium</option>
+                            <option value="long">Long</option>
+                            <option value="curly">Curly/Wavy</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Coat Color</label>
+                        <input id="coatColor" placeholder="e.g., Brown">
+                    </div>
+                </div>
+
+                <div class="pp-grid-3" style="margin-top:12px">
+                    <div><label>Neck Girth (cm)</label><input id="neckGirth" type="number" min="0" step="0.1"></div>
+                    <div><label>Back Length (cm)</label><input id="backLength" type="number" min="0" step="0.1"></div>
+                    <div><label>Chest Girth (cm)</label><input id="chestGirth" type="number" min="0" step="0.1"></div>
+                </div>
+
+                <h3 style="margin:16px 0 10px">Dietary & Notes</h3>
+                <div class="pp-grid-2">
+                    <div><label>Allergies</label><input id="allergies" placeholder="e.g., chicken, wheat"></div>
+                    <div><label>Diet Notes</label><input id="dietNotes" placeholder="Any special requirements"></div>
+                </div>
+                <div style="margin-top:12px">
+                    <label>Additional Notes</label>
+                    <textarea id="notes" style="width:100%;min-height:90px"></textarea>
+                </div>
+
+                <div style="display:flex;gap:.6rem;justify-content:flex-end;margin-top:16px">
+                    <button id="petReset" type="button" class="btn btn-outline">Reset</button>
+                    <button id="petSave" type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -608,85 +869,170 @@
     </footer>
 
     <script>
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('active');
-        }
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            
-            if (!mobileMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
-                mobileMenu.classList.remove('active');
-            }
+        // ------- Mobile menu toggle -------
+        function toggleMobileMenu() { const m = document.getElementById('mobileMenu'); m.classList.toggle('active'); }
+        document.addEventListener('click', function (e) {
+            const m = document.getElementById('mobileMenu'); const b = document.querySelector('.mobile-menu-btn');
+            if (!m) return; if (!m.contains(e.target) && !b.contains(e.target)) m.classList.remove('active');
         });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Close mobile menu after clicking
-                    document.getElementById('mobileMenu').classList.remove('active');
-                }
+        // ------- Smooth scroll for in-page anchors (except #pet-profile router) -------
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#pet-profile') { /* router will handle */ return; }
+                const target = document.querySelector(href);
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); document.getElementById('mobileMenu').classList.remove('active'); }
             });
         });
 
-        // Hero buttons hover effects
-        document.addEventListener('DOMContentLoaded', function() {
-            const heroButtons = document.querySelectorAll('.btn-hero');
-            heroButtons.forEach(button => {
-                button.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-2px)';
-                });
-                button.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
+        // ------- Hero btn hover -------
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.btn-hero').forEach(btn => {
+                btn.addEventListener('mouseenter', function () { this.style.transform = 'translateY(-2px)'; });
+                btn.addEventListener('mouseleave', function () { this.style.transform = 'translateY(0)'; });
             });
         });
 
-        // Newsletter subscription handling
+        // ------- Newsletter -------
         function handleNewsletterSubscription(event) {
             event.preventDefault();
             const email = event.target.querySelector('input[type="email"]').value;
-            
             if (email) {
-                // Show success message
-                const button = event.target.querySelector('button');
-                const originalText = button.textContent;
-                
-                button.textContent = 'Subscribed!';
-                button.style.background = '#10b981';
-                
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.style.background = '#6366f1';
-                    event.target.reset();
-                }, 2000);
-                
+                const btn = event.target.querySelector('button'); const t = btn.textContent;
+                btn.textContent = 'Subscribed!'; btn.style.background = '#10b981';
+                setTimeout(() => { btn.textContent = t; btn.style.background = '#6366f1'; event.target.reset(); }, 2000);
                 console.log('Newsletter subscription:', email);
             }
         }
 
-        // Add scroll effect to navbar
-        window.addEventListener('scroll', function() {
+        // ------- Navbar glass on scroll -------
+        window.addEventListener('scroll', function () {
             const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 100) {
-                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                navbar.style.backdropFilter = 'blur(10px)';
-            } else {
-                navbar.style.background = 'white';
-                navbar.style.backdropFilter = 'none';
-            }
+            if (window.scrollY > 100) { navbar.style.background = 'rgba(255,255,255,0.95)'; navbar.style.backdropFilter = 'blur(10px)'; }
+            else { navbar.style.background = '#fff'; navbar.style.backdropFilter = 'none'; }
         });
+
+        // ================= SPA ROUTER: Home <-> Pet Profile =================
+        const home = document.getElementById('homePage');
+        const pet = document.getElementById('petProfilePage');
+        function showPage(which) {
+            if (which === 'pet') { home.classList.add('hidden'); pet.classList.remove('hidden'); if (!window.__petInit) { window.__petInit = true; initPetProfile(); } }
+            else { pet.classList.add('hidden'); home.classList.remove('hidden'); }
+            const m = document.getElementById('mobileMenu'); if (m) m.classList.remove('active');
+            // set active link in navbar
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            const sel = which === 'pet' ? 'a[href="#pet-profile"]' : 'a[href="#home"]';
+            const act = document.querySelector(sel); if (act) act.classList.add('active');
+        }
+        function handleHash() { if (location.hash === '#pet-profile') showPage('pet'); else showPage('home'); }
+        window.addEventListener('hashchange', handleHash);
+        document.addEventListener('DOMContentLoaded', handleHash);
+
+        // ================= PET PROFILE LOGIC (API) =================
+        const API_BASE_URL = 'http://localhost:8080/api'; // đổi nếu khác
+        function getToken() { return localStorage.getItem('authToken'); }
+        async function parseSafe(res) {
+            let json = null, text = ''; const ct = (res.headers.get('content-type') || '').toLowerCase();
+            if (ct.includes('application/json')) { try { json = await res.json(); } catch { } } else { try { text = await res.text(); } catch { } }
+            return { json, text };
+        }
+        function setTop(msg, type = '') {
+            const box = document.getElementById('petTopMsg'); if (!msg) { box.innerHTML = ''; return; }
+            const cls = type === 'err' ? 'background:#ef4444;color:#fff' : 'background:#10b981;color:#fff';
+            box.innerHTML = `<div style="padding:12px;border-radius:12px;${cls}">${msg}</div>`;
+        }
+
+        function initPetProfile() {
+            const el = id => document.getElementById(id);
+            const avatar = el('petAvatar'), photoInput = el('petPhotoInput'), chooseBtn = el('choosePetPhoto'), uploadBtn = el('uploadPetPhoto'), photoMsg = el('petPhotoMsg');
+            const f = {
+                petName: el('petName'), species: el('species'), breed: el('breed'),
+                ageYears: el('ageYears'), weightKg: el('weightKg'), size: el('size'), coatType: el('coatType'), coatColor: el('coatColor'),
+                neckGirth: el('neckGirth'), backLength: el('backLength'), chestGirth: el('chestGirth'), allergies: el('allergies'), dietNotes: el('dietNotes'), notes: el('notes')
+            };
+            const form = el('petForm'), resetBtn = el('petReset');
+
+            let original = {}, petId = null, pendingPhoto = null;
+
+            function fill(o) {
+                Object.entries(f).forEach(([k, input]) => input.value = o[k] ?? '');
+                if (o.photo && /^https?:/.test(o.photo)) { avatar.style.backgroundImage = `url('${o.photo}')`; avatar.textContent = ''; }
+                else { avatar.style.backgroundImage = 'none'; avatar.textContent = '🐾'; }
+            }
+            function validate() {
+                let ok = true;
+                el('petNameError').textContent = f.petName.value.trim().length >= 2 ? '' : 'Name must be at least 2 characters'; ok &= f.petName.value.trim().length >= 2;
+                el('speciesError').textContent = f.species.value ? '' : 'Please choose species'; ok &= !!f.species.value;
+                el('sizeError').textContent = f.size.value ? '' : 'Please choose size'; ok &= !!f.size.value;
+                return !!ok;
+            }
+            function payload() {
+                const n = v => (v === '' ? null : Number(v));
+                return {
+                    petName: f.petName.value.trim(), species: f.species.value, breed: f.breed.value.trim(),
+                    ageYears: n(f.ageYears.value), weightKg: n(f.weightKg.value), size: f.size.value,
+                    coatType: f.coatType.value, coatColor: f.coatColor.value.trim(),
+                    neckGirth: n(f.neckGirth.value), backLength: n(f.backLength.value), chestGirth: n(f.chestGirth.value),
+                    allergies: f.allergies.value.trim(), dietNotes: f.dietNotes.value.trim(), notes: f.notes.value.trim()
+                };
+            }
+
+            // Load first pet (or seed from localStorage.user)
+            (async function load() {
+                const token = getToken(); if (!token) { location.href = 'login.html'; return; }
+                try {
+                    const listRes = await fetch(`${API_BASE_URL}/pets`, { headers: { Authorization: `Bearer ${token}` } }); const { json: list } = await parseSafe(listRes);
+                    if (Array.isArray(list) && list[0]) {
+                        petId = list[0].id || list[0]._id;
+                        const res = await fetch(`${API_BASE_URL}/pets/${petId}`, { headers: { Authorization: `Bearer ${token}` } }); const { json } = await parseSafe(res); original = json || {};
+                    } else {
+                        const user = JSON.parse(localStorage.getItem('user') || '{}'); original = { petName: user.petName || '', species: user.petType || '', size: user.petSize || '' };
+                    }
+                } catch { }
+                fill(original);
+            })();
+
+            // Save
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault(); setTop('');
+                if (!validate()) { setTop('Please fix the errors above.', 'err'); return; }
+                const token = getToken(); const body = JSON.stringify(payload());
+                try {
+                    const res = await fetch(petId ? `${API_BASE_URL}/pets/${petId}` : `${API_BASE_URL}/pets`, {
+                        method: petId ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body
+                    });
+                    const { json, text } = await parseSafe(res);
+                    if (res.ok) { petId = petId || (json?.id || json?._id || null); original = { ...original, ...(json || payload()) }; setTop('Pet profile saved!'); }
+                    else { setTop(json?.message || json?.error || text || 'Save failed', 'err'); }
+                } catch { setTop('Connection/CORS error', 'err'); }
+            });
+
+            // Reset
+            resetBtn.addEventListener('click', () => { fill(original); setTop(''); });
+
+            // Photo upload
+            chooseBtn.addEventListener('click', () => photoInput.click());
+            photoInput.addEventListener('change', () => {
+                const f = photoInput.files?.[0]; if (!f) return;
+                if (f.size > 5 * 1024 * 1024) { photoMsg.textContent = 'File too large (>5MB)'; return; }
+                pendingPhoto = f; const url = URL.createObjectURL(f); avatar.style.backgroundImage = `url('${url}')`; avatar.textContent = ''; photoMsg.textContent = 'Preview ready. Click "Upload" to save.';
+            });
+            uploadBtn.addEventListener('click', async () => {
+                if (!pendingPhoto) { photoMsg.textContent = 'Please choose a photo first.'; return; }
+                if (!petId) { photoMsg.textContent = 'Save profile first, then upload photo.'; return; }
+                const fd = new FormData(); fd.append('photo', pendingPhoto); uploadBtn.disabled = true;
+                try {
+                    const res = await fetch(`${API_BASE_URL}/pets/${petId}/photo`, { method: 'POST', headers: { Authorization: `Bearer ${getToken()}` }, body: fd });
+                    const { json, text } = await parseSafe(res); uploadBtn.disabled = false;
+                    if (res.ok) { original.photo = json?.photo || json?.url || text || ''; photoMsg.textContent = 'Photo updated!'; }
+                    else { photoMsg.textContent = json?.message || json?.error || text || 'Upload failed'; }
+                } catch { uploadBtn.disabled = false; photoMsg.textContent = 'Network/CORS error.'; }
+            });
+        }
     </script>
+
+    <script src="js/main.js"></script>
 </body>
+
 </html>
